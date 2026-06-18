@@ -1,0 +1,13 @@
+breaks:
+  - id: deal
+    name: "Deal, NJ"
+    latitude: 40.19
+    longitude: -74.03
+  - id: belmar
+    name: "Belmar, NJ"
+    latitude: 40.19
+    longitude: -74.03
+  - id: spring_lake
+    name: "Spring Lake, NJ"
+    latitude: 40.15
+    longitude: -74.03

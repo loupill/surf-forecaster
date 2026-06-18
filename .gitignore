@@ -1,0 +1,22 @@
+# Environments
+.env
+.env.*
+.venv/
+venv/
+.surf_venv/
+!.env.example
+
+
+# Notebooks
+notebooks/
+
+__pycache__/
+.ipynb_checkpoints/
+*.pyc
+
+# CSVs
+*.csv
+
+# macOS
+.DS_Store
+
