@@ -12,6 +12,7 @@ x-airflow-common: &airflow-common
     POSTGRES_PORT: 5432
     POSTGRES_DB: ${POSTGRES_DB}
     PYTHONPATH: /opt/airflow/src
+    AIRFLOW__WEBSERVER__WORKERS: 1
   volumes:
     - ./dags:/opt/airflow/dags
     - ./src:/opt/airflow/src
