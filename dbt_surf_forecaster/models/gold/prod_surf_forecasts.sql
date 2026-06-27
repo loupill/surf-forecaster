@@ -1,0 +1,47 @@
+with marine as (
+    select * from {{ ref('prod_marine_forecasts') }}
+),
+
+weather as (
+    select * from {{ ref('prod_weather_forecasts') }}
+),
+
+joined as (
+    select
+        marine.break_id
+        , marine.forecast_time
+        , marine.hour_of_day
+        , marine.month
+
+        -- marine features
+        , marine.wave_height_ft
+        , marine.swell_wave_height_ft
+        , marine.wind_wave_height_ft
+        , marine.swell_ratio
+        , marine.swell_wave_period_s
+        , marine.wave_period_s
+        , marine.swell_wave_direction_deg
+        , marine.swell_wave_dir_sin
+        , marine.swell_wave_dir_cos
+        , marine.swell_wave_direction_cardinal
+        , marine.wave_direction_deg
+        , marine.wave_dir_sin
+        , marine.wave_dir_cos
+        , marine.wave_direction_cardinal
+
+        -- weather features
+        , weather.temperature_f
+        , weather.wind_speed_mph
+        , weather.wind_gusts_mph
+        , weather.wind_direction_deg
+        , weather.wind_dir_sin
+        , weather.wind_dir_cos
+        , weather.wind_direction_cardinal
+
+    from marine
+    inner join weather
+        on  marine.break_id = weather.break_id
+        and marine.forecast_time = weather.forecast_time
+)
+
+select * from joined
