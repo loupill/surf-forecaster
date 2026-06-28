@@ -17,6 +17,7 @@ x-airflow-common: &airflow-common
     - ./dags:/opt/airflow/dags
     - ./src:/opt/airflow/src
     - ./config:/opt/airflow/config
+    - ./dbt_surf_forecaster:/opt/airflow/dbt
   depends_on:
     postgres-airflow:
       condition: service_healthy
