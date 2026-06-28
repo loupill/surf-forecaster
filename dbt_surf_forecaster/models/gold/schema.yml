@@ -1,0 +1,144 @@
+version: 2
+
+models:
+  - name: prod_marine_forecasts
+    description: Marine forecast data (wave/swell features) per surf break and forecast hour.
+    columns:
+      - name: id
+        description: Primary key, surrogate id from the marine forecast staging source.
+        tests:
+          - unique
+          - not_null
+      - name: break_id
+        description: Identifier of the surf break the forecast applies to.
+        tests:
+          - not_null
+      - name: forecast_time
+        description: Timestamp the forecast applies to.
+        tests:
+          - not_null
+      - name: hour_of_day
+        description: Hour (0-23) extracted from forecast_time.
+      - name: month
+        description: Month (1-12) extracted from forecast_time.
+      - name: wave_height_ft
+        description: Total wave height, in feet.
+      - name: swell_wave_height_ft
+        description: Swell component of wave height, in feet.
+      - name: wind_wave_height_ft
+        description: Wind-driven component of wave height, in feet.
+      - name: swell_ratio
+        description: Ratio of swell_wave_height_ft to wave_height_ft, rounded to 2 decimal places.
+      - name: swell_wave_period_s
+        description: Swell wave period, in seconds.
+      - name: swell_wave_direction_deg
+        description: Swell wave direction, in degrees (0-360).
+      - name: swell_wave_direction_cardinal
+        description: Swell wave direction bucketed into a 16-point cardinal direction (N, NNE, NE, ...).
+      - name: swell_wave_dir_sin
+        description: Sine of swell_wave_direction_deg (radians), used for cyclical encoding.
+      - name: swell_wave_dir_cos
+        description: Cosine of swell_wave_direction_deg (radians), used for cyclical encoding.
+      - name: wave_period_s
+        description: Total wave period, in seconds.
+      - name: wave_direction_deg
+        description: Total wave direction, in degrees (0-360).
+      - name: wave_direction_cardinal
+        description: Total wave direction bucketed into a 16-point cardinal direction (N, NNE, NE, ...).
+      - name: wave_dir_sin
+        description: Sine of wave_direction_deg (radians), used for cyclical encoding.
+      - name: wave_dir_cos
+        description: Cosine of wave_direction_deg (radians), used for cyclical encoding.
+
+  - name: prod_weather_forecasts
+    description: Weather forecast data (temperature/wind features) per surf break and forecast hour.
+    columns:
+      - name: id
+        description: Primary key, surrogate id from the weather forecast staging source.
+        tests:
+          - unique
+          - not_null
+      - name: break_id
+        description: Identifier of the surf break the forecast applies to.
+        tests:
+          - not_null
+      - name: forecast_time
+        description: Timestamp the forecast applies to.
+        tests:
+          - not_null
+      - name: hour_of_day
+        description: Hour (0-23) extracted from forecast_time.
+      - name: month
+        description: Month (1-12) extracted from forecast_time.
+      - name: temperature_f
+        description: Air temperature, in degrees Fahrenheit.
+      - name: wind_speed_mph
+        description: Sustained wind speed, in miles per hour.
+      - name: wind_gusts_mph
+        description: Wind gust speed, in miles per hour.
+      - name: wind_direction_deg
+        description: Wind direction, in degrees (0-360).
+      - name: wind_dir_sin
+        description: Sine of wind_direction_deg (radians), used for cyclical encoding.
+      - name: wind_dir_cos
+        description: Cosine of wind_direction_deg (radians), used for cyclical encoding.
+      - name: wind_direction_cardinal
+        description: Wind direction bucketed into a 16-point cardinal direction (N, NNE, NE, ...).
+
+  - name: fct_surf_forecasts
+    description: Surf forecast fact table, joining marine and weather forecasts on break_id and forecast_time.
+    columns:
+      - name: break_id
+        description: Identifier of the surf break the forecast applies to.
+        tests:
+          - not_null
+      - name: forecast_time
+        description: Timestamp the forecast applies to.
+        tests:
+          - not_null
+      - name: hour_of_day
+        description: Hour (0-23) extracted from forecast_time.
+      - name: month
+        description: Month (1-12) extracted from forecast_time.
+      - name: wave_height_ft
+        description: Total wave height, in feet.
+      - name: swell_wave_height_ft
+        description: Swell component of wave height, in feet.
+      - name: wind_wave_height_ft
+        description: Wind-driven component of wave height, in feet.
+      - name: swell_ratio
+        description: Ratio of swell_wave_height_ft to wave_height_ft, rounded to 2 decimal places.
+      - name: swell_wave_period_s
+        description: Swell wave period, in seconds.
+      - name: wave_period_s
+        description: Total wave period, in seconds.
+      - name: swell_wave_direction_deg
+        description: Swell wave direction, in degrees (0-360).
+      - name: swell_wave_dir_sin
+        description: Sine of swell_wave_direction_deg (radians), used for cyclical encoding.
+      - name: swell_wave_dir_cos
+        description: Cosine of swell_wave_direction_deg (radians), used for cyclical encoding.
+      - name: swell_wave_direction_cardinal
+        description: Swell wave direction bucketed into a 16-point cardinal direction (N, NNE, NE, ...).
+      - name: wave_direction_deg
+        description: Total wave direction, in degrees (0-360).
+      - name: wave_dir_sin
+        description: Sine of wave_direction_deg (radians), used for cyclical encoding.
+      - name: wave_dir_cos
+        description: Cosine of wave_direction_deg (radians), used for cyclical encoding.
+      - name: wave_direction_cardinal
+        description: Total wave direction bucketed into a 16-point cardinal direction (N, NNE, NE, ...).
+      - name: temperature_f
+        description: Air temperature, in degrees Fahrenheit.
+      - name: wind_speed_mph
+        description: Sustained wind speed, in miles per hour.
+      - name: wind_gusts_mph
+        description: Wind gust speed, in miles per hour.
+      - name: wind_direction_deg
+        description: Wind direction, in degrees (0-360).
+      - name: wind_dir_sin
+        description: Sine of wind_direction_deg (radians), used for cyclical encoding.
+      - name: wind_dir_cos
+        description: Cosine of wind_direction_deg (radians), used for cyclical encoding.
+      - name: wind_direction_cardinal
+        description: Wind direction bucketed into a 16-point cardinal direction (N, NNE, NE, ...).
