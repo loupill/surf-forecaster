@@ -9,4 +9,4 @@ python-dotenv
 sqlalchemy
 psycopg2-binary
 pyyaml
-dbt-postgres==1.10.22
+dbt-postgres==1.9.1
