@@ -6,6 +6,7 @@ with base as (
 select
     id 
     , break_id 
+    , retrieved_at
     , forecast_time
     , extract(hour from forecast_time) as hour_of_day    
     , extract(month from forecast_time) as month    

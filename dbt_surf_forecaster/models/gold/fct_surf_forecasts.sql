@@ -8,7 +8,8 @@ weather as (
 
 joined as (
     select
-        marine.break_id
+        marine.retrieved_at
+        , marine.break_id
         , marine.forecast_time
         , marine.hour_of_day
         , marine.month
