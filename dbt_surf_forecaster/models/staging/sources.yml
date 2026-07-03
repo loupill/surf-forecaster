@@ -6,3 +6,4 @@ sources:
     tables:
       - name: marine_forecasts
       - name: weather_forecasts
+      - name: tide_forecasts
