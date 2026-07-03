@@ -3,7 +3,7 @@ with source as (
 )
 
 select
-    time as forecast_time
+    cast(time as timestamptz) as forecast_time
     , type as tide    
     , cast(value as numeric) as height
     , retrieved_at
