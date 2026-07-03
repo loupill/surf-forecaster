@@ -3,11 +3,14 @@ breaks:
     name: "Deal, NJ"
     latitude: 40.19
     longitude: -74.03
+    station_id: '8531680'
   - id: belmar
     name: "Belmar, NJ"
     latitude: 40.19
     longitude: -74.03
+    station_id: '8531680'
   - id: spring_lake
     name: "Spring Lake, NJ"
     latitude: 40.15
     longitude: -74.03
+    station_id: '8531680'
