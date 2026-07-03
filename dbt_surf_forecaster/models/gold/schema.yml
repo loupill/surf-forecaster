@@ -85,6 +85,22 @@ models:
       - name: wind_direction_cardinal
         description: Wind direction bucketed into a 16-point cardinal direction (N, NNE, NE, ...).
 
+  - name: prod_tide_data
+    description: Tide prediction data (high/low events) per forecast hour.
+    columns:
+      - name: forecast_time
+        description: Timestamp the tide prediction applies to.
+        tests:
+          - not_null
+      - name: tide
+        description: Tide event type at forecast_time ('H' for high, 'L' for low).
+      - name: height
+        description: Predicted tide height, in feet (MLLW datum).
+      - name: tide_change_ft
+        description: Change in tide height, in feet, from the prior tide event.
+      - name: retrieved_at
+        description: Timestamp the tide data was retrieved from the source API.
+
   - name: fct_surf_forecasts
     description: Surf forecast fact table, joining marine and weather forecasts on break_id and forecast_time.
     columns:
@@ -128,6 +144,12 @@ models:
         description: Cosine of wave_direction_deg (radians), used for cyclical encoding.
       - name: wave_direction_cardinal
         description: Total wave direction bucketed into a 16-point cardinal direction (N, NNE, NE, ...).
+      - name: tide
+        description: Tide event type at forecast_time ('H' for high, 'L' for low).
+      - name: height
+        description: Predicted tide height, in feet (MLLW datum).
+      - name: tide_change_ft
+        description: Change in tide height, in feet, from the prior tide event.
       - name: temperature_f
         description: Air temperature, in degrees Fahrenheit.
       - name: wind_speed_mph

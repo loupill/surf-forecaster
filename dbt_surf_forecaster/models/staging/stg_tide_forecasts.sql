@@ -5,6 +5,6 @@ with source as (
 select
     time as forecast_time
     , type as tide    
-    , value as height
+    , cast(value as numeric) as height
     , retrieved_at
 from source

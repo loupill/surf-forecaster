@@ -1,12 +1,16 @@
 with marine as (
     select * from {{ ref('prod_marine_forecasts') }}
-),
+)
 
-weather as (
+, weather as (
     select * from {{ ref('prod_weather_forecasts') }}
-),
+)
 
-joined as (
+, tide as (
+    select * from {{ ref('prod_tide_data') }}
+)
+
+, joined as (
     select
         marine.retrieved_at
         , marine.break_id
@@ -30,6 +34,11 @@ joined as (
         , marine.wave_dir_cos
         , marine.wave_direction_cardinal
 
+        -- tide features
+        , tide.tide
+        , tide.height
+        , tide.tide_change_ft
+
         -- weather features
         , weather.temperature_f
         , weather.wind_speed_mph
@@ -43,6 +52,8 @@ joined as (
     inner join weather
         on  marine.break_id = weather.break_id
         and marine.forecast_time = weather.forecast_time
+    left join tide
+        on marine.forecast_time = tide.forecast_time
 )
 
 select * from joined
