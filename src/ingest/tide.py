@@ -21,7 +21,7 @@ def fetch_tide_data(
         "product": "predictions",
         "datum": "MLLW",
         "time_zone": "lst_ldt",
-        "interval": "hilo",
+        "interval": "h",
         "units": "english",
         "application": "SurfForecastingPipeline",
         "format": "json",
