@@ -1,13 +1,28 @@
 with marine as (
-    select * from {{ ref('prod_marine_forecasts') }}
+    select *,
+        row_number() over (
+            partition by break_id, forecast_time 
+            order by retrieved_at desc
+        ) as rn
+    from {{ ref('prod_marine_forecasts') }}
 )
 
 , weather as (
-    select * from {{ ref('prod_weather_forecasts') }}
+    select *,
+        row_number() over (
+            partition by break_id, forecast_time 
+            order by retrieved_at desc
+        ) as rn
+    from {{ ref('prod_weather_forecasts') }}
 )
 
 , tide as (
-    select * from {{ ref('prod_tide_data') }}
+    select *,
+        row_number() over (
+            partition by forecast_time 
+            order by retrieved_at desc
+        ) as rn
+    from {{ ref('prod_tide_data') }}
 )
 
 , joined as (
@@ -48,12 +63,17 @@ with marine as (
         , weather.wind_dir_cos
         , weather.wind_direction_cardinal
 
+
     from marine
     inner join weather
         on  marine.break_id = weather.break_id
         and marine.forecast_time = weather.forecast_time
+        and weather.rn = 1
+        
     left join tide
-        on marine.forecast_time = tide.forecast_time
+       on marine.forecast_time = tide.forecast_time
+       and tide.rn = 1
+    where marine.rn = 1 
 )
 
 select * from joined
