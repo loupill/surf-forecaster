@@ -120,9 +120,13 @@ def apply_scoring(df):
 
     return scored_df
 
+def full_scoring():
+    engine = get_engine()
+    df = load_data()
+    scored_df = apply_scoring(df)
+    write_dataframe(df = scored_df, table_name = 'scored_forecasts', schema = 'gold', engine = engine)
+
 
 
 if __name__ == "__main__":
-    engine = get_engine()
-    scored_forecasts = apply_scoring(load_data())
-    write_dataframe(df = scored_forecasts, table_name = 'scored_forecasts', schema = 'gold', engine = engine)
+    full_scoring()
