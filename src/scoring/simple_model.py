@@ -1,11 +1,7 @@
 import pandas as pd
 import numpy as np
 import sys, os
-
-
-sys.path.insert(0, os.path.abspath('.'))
-
-from ingest.db import get_engine
+from ingest.db import get_engine, write_dataframe
 
 def load_data():
     """
@@ -21,7 +17,7 @@ def score_wind(wind_speed_mph, wind_dir_cardinal):
     north_dirs = {"N", "NNE", "NNW"}
 
     if wind_speed_mph < 3:
-        return 30  # glassy, direction barely matters
+        return 35  # glassy, direction barely matters
 
     if wind_dir_cardinal in offshore_dirs:
         if wind_speed_mph < 20:
@@ -127,5 +123,6 @@ def apply_scoring(df):
 
 
 if __name__ == "__main__":
+    engine = get_engine()
     scored_forecasts = apply_scoring(load_data())
-    print(scored_forecasts.head())
+    write_dataframe(df = scored_forecasts, table_name = 'scored_forecasts', schema = 'gold', engine = engine)
