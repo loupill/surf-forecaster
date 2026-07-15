@@ -9,6 +9,7 @@ DBT_PROFILES_DIR = "/opt/airflow/dbt"
 
 
 from main_ingest import run_ingest
+from scoring.simple_model import full_scoring
 
 with DAG(
     dag_id = 'surf_ingest',
@@ -29,6 +30,11 @@ with DAG(
 
     )
 
+    simple_score = PythonOperator(
+        task_id = "simple_score",
+        python_callable = full_scoring
+    )
+
 
     # Set task dependencies
-    ingest_task >> dbt_run
+    ingest_task >> dbt_run >> simple_score

@@ -20,15 +20,15 @@ def get_engine():
     return create_engine(connection_string)
 
 
-def write_dataframe(df, table_name, schema, engine):
+def write_dataframe(df, table_name, schema, engine, if_exists = 'append'):
     """
-    Append a DataFrame to a Postgres table.
+    Write a DataFrame to a Postgres table.
     """
 
     df.to_sql(
         table_name,
         con = engine,
         schema = schema,
-        if_exists = 'append',
+        if_exists = if_exists,
         index = False
     )

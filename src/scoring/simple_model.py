@@ -124,7 +124,7 @@ def full_scoring():
     engine = get_engine()
     df = load_data()
     scored_df = apply_scoring(df)
-    write_dataframe(df = scored_df, table_name = 'scored_forecasts', schema = 'gold', engine = engine)
+    write_dataframe(df = scored_df, table_name = 'scored_forecasts', schema = 'gold', engine = engine, if_exists = 'replace')
 
 
 
