@@ -1,0 +1,204 @@
+:root {
+    --bg-deep: #04101c;
+    --bg-mid: #0a2740;
+    --bg-glow: #123a56;
+    --surface: rgba(255, 255, 255, 0.06);
+    --border: rgba(255, 255, 255, 0.12);
+    --text: #eaf4fb;
+    --text-dim: #8fa8bd;
+    --accent: #2dd4bf;
+    --accent-dark: #14a89a;
+    --star-fill: #ffc35c;
+    --star-empty: rgba(255, 255, 255, 0.16);
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:
+        max(24px, env(safe-area-inset-top))
+        max(20px, env(safe-area-inset-right))
+        max(24px, env(safe-area-inset-bottom))
+        max(20px, env(safe-area-inset-left));
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 50% -10%, var(--bg-glow) 0%, transparent 55%),
+        linear-gradient(180deg, var(--bg-mid) 0%, var(--bg-deep) 100%);
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+}
+
+.card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 28px;
+    padding: 36px 26px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    text-align: center;
+}
+
+.wave-badge {
+    font-size: 44px;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+h1 {
+    margin: 4px 0 2px;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.subtitle {
+    margin: 0 0 26px;
+    color: var(--text-dim);
+    font-size: 15px;
+}
+
+.stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 2px;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.stars input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.stars label {
+    font-size: 46px;
+    line-height: 1;
+    color: var(--star-empty);
+    padding: 6px;
+    cursor: pointer;
+    transition: color 0.15s ease, transform 0.1s ease;
+    user-select: none;
+}
+
+.stars label:active {
+    transform: scale(0.92);
+}
+
+.stars input:checked ~ label,
+.stars label:hover,
+.stars label:hover ~ label {
+    color: var(--star-fill);
+}
+
+.rating-hint {
+    margin: 4px 0 28px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dim);
+    min-height: 18px;
+}
+
+.notes-label {
+    display: block;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+}
+
+.notes-label .optional {
+    font-weight: 400;
+    color: var(--text-dim);
+    opacity: 0.7;
+}
+
+textarea {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px;
+    color: var(--text);
+    font-size: 16px;
+    font-family: inherit;
+    resize: vertical;
+    margin-bottom: 24px;
+}
+
+textarea::placeholder {
+    color: var(--text-dim);
+    opacity: 0.6;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.25);
+}
+
+.submit-btn {
+    width: 100%;
+    border: none;
+    border-radius: 999px;
+    padding: 16px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #04101c;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    box-shadow: 0 10px 30px rgba(45, 212, 191, 0.35);
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.submit-btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 6px 18px rgba(45, 212, 191, 0.3);
+}
+
+.stars-display {
+    font-size: 40px;
+    letter-spacing: 4px;
+    margin: 8px 0 20px;
+}
+
+.stars-display span {
+    color: var(--star-empty);
+}
+
+.stars-display span.filled {
+    color: var(--star-fill);
+}
+
+.notes-display {
+    color: var(--text-dim);
+    font-size: 15px;
+    font-style: italic;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.card.center {
+    padding-top: 44px;
+    padding-bottom: 44px;
+}

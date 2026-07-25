@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#04101c">
+    <title>Rate your session</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <main class="card">
+        <div class="wave-badge">🌊</div>
+        <h1>How was it?</h1>
+        <p class="subtitle">{{ break_name }}</p>
+
+        <form method="post" action="/rate/{{ token }}">
+            <fieldset class="stars" aria-label="Session rating">
+                <input type="radio" id="star5" name="rating" value="5" required>
+                <label for="star5" title="Epic">★</label>
+                <input type="radio" id="star4" name="rating" value="4">
+                <label for="star4" title="Firing">★</label>
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3" title="Fun">★</label>
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2" title="Junky">★</label>
+                <input type="radio" id="star1" name="rating" value="1">
+                <label for="star1" title="Flat">★</label>
+            </fieldset>
+            <p class="rating-hint" id="ratingHint">Tap a star</p>
+
+            <label class="notes-label" for="notes">Notes <span class="optional">(optional)</span></label>
+            <textarea id="notes" name="notes" rows="4" placeholder="Chest high, offshore wind, empty lineup..."></textarea>
+
+            <button type="submit" class="submit-btn">Log session</button>
+        </form>
+    </main>
+
+    <script>
+        const hint = document.getElementById('ratingHint');
+        const labels = { 1: 'Flat', 2: 'Junky', 3: 'Fun', 4: 'Firing', 5: 'Epic' };
+        document.querySelectorAll('.stars input').forEach((input) => {
+            input.addEventListener('change', () => {
+                hint.textContent = labels[input.value];
+            });
+        });
+    </script>
+</body>
+</html>

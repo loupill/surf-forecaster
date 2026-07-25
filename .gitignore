@@ -22,3 +22,11 @@ __pycache__/
 
 # dbt
 logs/
+
+# editors
+.vscode/
+.idea/
+
+# python tooling caches
+.pytest_cache/
+.mypy_cache/
