@@ -8,7 +8,7 @@ from fastapi.templating import Jinja2Templates
 app = FastAPI()
 
 # Define the directory where HTML templates are stored
-templates = Jinja2Templates(directory = "templates")
+templates = Jinja2Templates(directory = "labeling_app/templates")
 
 @app.get("/rate/{token}")
 def get_rating_form(request: Request, token: str, db: Session=Depends(get_db)):
