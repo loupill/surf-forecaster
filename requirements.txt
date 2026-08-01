@@ -16,3 +16,4 @@ seaborn
 fastapi
 uvicorn
 sqlmodel
+jinja2
