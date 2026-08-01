@@ -3,8 +3,12 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 from labeling_app.db import get_db
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
+
+# Define the directory where HTML templates are stored
+templates = Jinja2Templates(directory = "templates")
 
 @app.get("/rate/{token}")
 def get_rating_form(token: str, db: Session=Depends(get_db)):
@@ -15,5 +19,8 @@ def get_rating_form(token: str, db: Session=Depends(get_db)):
     session_row = result.fetchone()
     
     if session_row is None:
-            raise HTTPException(status_code=404, detail='No token found')
-    return {"break_id": session_row.break_id}
+        return templates.TemplateResponse(
+        request=token, 
+        name="error.html", 
+        context={"token": token}
+    )
