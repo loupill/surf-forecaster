@@ -1,5 +1,5 @@
 
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Request
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 from labeling_app.db import get_db
@@ -11,7 +11,7 @@ app = FastAPI()
 templates = Jinja2Templates(directory = "templates")
 
 @app.get("/rate/{token}")
-def get_rating_form(token: str, db: Session=Depends(get_db)):
+def get_rating_form(request: Request, token: str, db: Session=Depends(get_db)):
     result = db.execute(
         text("select * from gold.labeling_sessions where token = :token"), 
         {"token": token}
@@ -20,7 +20,7 @@ def get_rating_form(token: str, db: Session=Depends(get_db)):
     
     if session_row is None:
         return templates.TemplateResponse(
-        request=token, 
+        request=request, 
         name="error.html", 
         context={"token": token}
     )
