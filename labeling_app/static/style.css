@@ -73,6 +73,29 @@ h1 {
     font-size: 15px;
 }
 
+.rating-section {
+    text-align: left;
+    padding-top: 22px;
+    margin-top: 22px;
+    border-top: 1px solid var(--border);
+}
+
+.rating-section:first-of-type {
+    padding-top: 0;
+    margin-top: 0;
+    border-top: none;
+}
+
+.period-heading {
+    margin: 0 0 12px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-align: center;
+}
+
 .stars {
     display: flex;
     flex-direction: row-reverse;

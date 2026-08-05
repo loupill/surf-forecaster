@@ -14,33 +14,78 @@
         <p class="subtitle">{{ break_name }}</p>
 
         <form method="post" action="/rate/{{ token }}">
-            <fieldset class="stars" aria-label="Session rating">
-                <input type="radio" id="star5" name="rating" value="5" required>
-                <label for="star5" title="Epic">★</label>
-                <input type="radio" id="star4" name="rating" value="4">
-                <label for="star4" title="Firing">★</label>
-                <input type="radio" id="star3" name="rating" value="3">
-                <label for="star3" title="Fun">★</label>
-                <input type="radio" id="star2" name="rating" value="2">
-                <label for="star2" title="Junky">★</label>
-                <input type="radio" id="star1" name="rating" value="1">
-                <label for="star1" title="Flat">★</label>
-            </fieldset>
-            <p class="rating-hint" id="ratingHint">Tap a star</p>
+            <section class="rating-section">
+                <h2 class="period-heading">Morning</h2>
+                <fieldset class="stars" aria-label="Morning rating">
+                    <input type="radio" id="morning-star5" name="morning_rating" value="5" required>
+                    <label for="morning-star5" title="Epic">★</label>
+                    <input type="radio" id="morning-star4" name="morning_rating" value="4">
+                    <label for="morning-star4" title="Firing">★</label>
+                    <input type="radio" id="morning-star3" name="morning_rating" value="3">
+                    <label for="morning-star3" title="Fun">★</label>
+                    <input type="radio" id="morning-star2" name="morning_rating" value="2">
+                    <label for="morning-star2" title="Junky">★</label>
+                    <input type="radio" id="morning-star1" name="morning_rating" value="1">
+                    <label for="morning-star1" title="Flat">★</label>
+                </fieldset>
+                <p class="rating-hint">Tap a star</p>
 
-            <label class="notes-label" for="notes">Notes <span class="optional">(optional)</span></label>
-            <textarea id="notes" name="notes" rows="4" placeholder="Chest high, offshore wind, empty lineup..."></textarea>
+                <label class="notes-label" for="morning_notes">Notes <span class="optional">(optional)</span></label>
+                <textarea id="morning_notes" name="morning_notes" rows="4" placeholder="Chest high, offshore wind, empty lineup..."></textarea>
+            </section>
+
+            <section class="rating-section">
+                <h2 class="period-heading">Midday</h2>
+                <fieldset class="stars" aria-label="Midday rating">
+                    <input type="radio" id="midday-star5" name="midday_rating" value="5" required>
+                    <label for="midday-star5" title="Epic">★</label>
+                    <input type="radio" id="midday-star4" name="midday_rating" value="4">
+                    <label for="midday-star4" title="Firing">★</label>
+                    <input type="radio" id="midday-star3" name="midday_rating" value="3">
+                    <label for="midday-star3" title="Fun">★</label>
+                    <input type="radio" id="midday-star2" name="midday_rating" value="2">
+                    <label for="midday-star2" title="Junky">★</label>
+                    <input type="radio" id="midday-star1" name="midday_rating" value="1">
+                    <label for="midday-star1" title="Flat">★</label>
+                </fieldset>
+                <p class="rating-hint">Tap a star</p>
+
+                <label class="notes-label" for="midday_notes">Notes <span class="optional">(optional)</span></label>
+                <textarea id="midday_notes" name="midday_notes" rows="4" placeholder="Chest high, offshore wind, empty lineup..."></textarea>
+            </section>
+
+            <section class="rating-section">
+                <h2 class="period-heading">Evening</h2>
+                <fieldset class="stars" aria-label="Evening rating">
+                    <input type="radio" id="evening-star5" name="evening_rating" value="5" required>
+                    <label for="evening-star5" title="Epic">★</label>
+                    <input type="radio" id="evening-star4" name="evening_rating" value="4">
+                    <label for="evening-star4" title="Firing">★</label>
+                    <input type="radio" id="evening-star3" name="evening_rating" value="3">
+                    <label for="evening-star3" title="Fun">★</label>
+                    <input type="radio" id="evening-star2" name="evening_rating" value="2">
+                    <label for="evening-star2" title="Junky">★</label>
+                    <input type="radio" id="evening-star1" name="evening_rating" value="1">
+                    <label for="evening-star1" title="Flat">★</label>
+                </fieldset>
+                <p class="rating-hint">Tap a star</p>
+
+                <label class="notes-label" for="evening_notes">Notes <span class="optional">(optional)</span></label>
+                <textarea id="evening_notes" name="evening_notes" rows="4" placeholder="Chest high, offshore wind, empty lineup..."></textarea>
+            </section>
 
             <button type="submit" class="submit-btn">Log session</button>
         </form>
     </main>
 
     <script>
-        const hint = document.getElementById('ratingHint');
         const labels = { 1: 'Flat', 2: 'Junky', 3: 'Fun', 4: 'Firing', 5: 'Epic' };
-        document.querySelectorAll('.stars input').forEach((input) => {
-            input.addEventListener('change', () => {
-                hint.textContent = labels[input.value];
+        document.querySelectorAll('.rating-section').forEach((section) => {
+            const hint = section.querySelector('.rating-hint');
+            section.querySelectorAll('.stars input').forEach((input) => {
+                input.addEventListener('change', () => {
+                    hint.textContent = labels[input.value];
+                });
             });
         });
     </script>
