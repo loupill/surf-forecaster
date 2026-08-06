@@ -203,6 +203,7 @@ textarea:focus {
     font-size: 40px;
     letter-spacing: 4px;
     margin: 8px 0 20px;
+    text-align: center;
 }
 
 .stars-display span {
@@ -219,6 +220,7 @@ textarea:focus {
     font-style: italic;
     line-height: 1.5;
     margin: 0;
+    text-align: center;
 }
 
 .card.center {
