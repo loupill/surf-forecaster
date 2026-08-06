@@ -9,17 +9,51 @@
 </head>
 <body>
     <main class="card center">
-        <div class="wave-badge">{{ '✅' if already_rated else '🤙' }}</div>
-        <h1>{{ 'Already logged' if already_rated else 'Logged' }}</h1>
+        <div class="wave-badge">🤙</div>
+        <h1>Logged</h1>
         <p class="subtitle">{{ break_name }}</p>
 
-        <div class="stars-display" aria-label="{{ rating }} out of 5 stars">
-            {% for i in range(1, 6) %}<span class="{{ 'filled' if i <= rating else '' }}">★</span>{% endfor %}
-        </div>
+        <section class="rating-section">
+            <h2 class="period-heading">Morning</h2>
+            {% if morning_rating %}
+                <div class="stars-display" aria-label="{{ morning_rating }} out of 5 stars">
+                    {% for i in range(1, 6) %}<span class="{{ 'filled' if i <= morning_rating else '' }}">★</span>{% endfor %}
+                </div>
+                {% if morning_comment %}
+                    <p class="notes-display">&ldquo;{{ morning_comment }}&rdquo;</p>
+                {% endif %}
+            {% else %}
+                <p class="notes-display">Not rated</p>
+            {% endif %}
+        </section>
 
-        {% if notes %}
-            <p class="notes-display">&ldquo;{{ notes }}&rdquo;</p>
-        {% endif %}
+        <section class="rating-section">
+            <h2 class="period-heading">Midday</h2>
+            {% if midday_rating %}
+                <div class="stars-display" aria-label="{{ midday_rating }} out of 5 stars">
+                    {% for i in range(1, 6) %}<span class="{{ 'filled' if i <= midday_rating else '' }}">★</span>{% endfor %}
+                </div>
+                {% if midday_comment %}
+                    <p class="notes-display">&ldquo;{{ midday_comment }}&rdquo;</p>
+                {% endif %}
+            {% else %}
+                <p class="notes-display">Not rated</p>
+            {% endif %}
+        </section>
+
+        <section class="rating-section">
+            <h2 class="period-heading">Evening</h2>
+            {% if evening_rating %}
+                <div class="stars-display" aria-label="{{ evening_rating }} out of 5 stars">
+                    {% for i in range(1, 6) %}<span class="{{ 'filled' if i <= evening_rating else '' }}">★</span>{% endfor %}
+                </div>
+                {% if evening_comment %}
+                    <p class="notes-display">&ldquo;{{ evening_comment }}&rdquo;</p>
+                {% endif %}
+            {% else %}
+                <p class="notes-display">Not rated</p>
+            {% endif %}
+        </section>
     </main>
 </body>
 </html>
