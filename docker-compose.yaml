@@ -47,6 +47,7 @@ services:
       - "5434:5432"
     volumes:
       - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./sql/label_sessions.sql:/docker-entrypoint-initdb.d/label_sessions.sql
       - postgres-app-data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}"]
@@ -70,6 +71,21 @@ services:
     <<: *airflow-common
     command: airflow scheduler
     restart: always
+
+  labeling_app:
+    build:
+      context: .
+      dockerfile: rating_app.Dockerfile
+    container_name: labeling_app
+    restart: always
+    environment:
+      POSTGRES_HOST: postgres-app
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}    
+    ports:
+      - "8000:8000"
 
 volumes:
   postgres-app-data:
