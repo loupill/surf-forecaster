@@ -17,7 +17,7 @@ def get_engine():
     db = os.environ["POSTGRES_DB"]
 
     connection_string = f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{db}"
-    return create_engine(connection_string)
+    return create_engine(connection_string, future=True)
 
 
 def write_dataframe(df, table_name, schema, engine, if_exists = 'append'):
