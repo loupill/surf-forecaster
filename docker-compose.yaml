@@ -38,6 +38,8 @@ services:
       test: ["CMD", "pg_isready", "-U", "airflow"]
       interval: 5s
       retries: 5
+    volumes:
+      - postgres-airflow-data:/var/lib/postgresql/data      
 
   postgres-app:
     image: postgres:15
@@ -91,3 +93,4 @@ services:
 
 volumes:
   postgres-app-data:
+  postgres-airflow-data:
