@@ -25,7 +25,6 @@ body {
     margin: 0;
     min-height: 100dvh;
     display: flex;
-    align-items: center;
     justify-content: center;
     padding:
         max(24px, env(safe-area-inset-top))
@@ -44,6 +43,7 @@ body {
 .card {
     width: 100%;
     max-width: 420px;
+    margin: auto 0;
     background: var(--surface);
     border: 1px solid var(--border);
     backdrop-filter: blur(20px);

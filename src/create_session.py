@@ -18,22 +18,37 @@ def create_session():
 
     with engine.connect() as conn:
         try:
-            conn.execute(
-                text("""
-                    insert into gold.labeling_sessions (token, break_id, session_date, sent_at)
-                    values (:token, :break_id, :session_date, :sent_at)
-                """
-                ),
-                {
-                    "token": token,
-                    "break_id": BREAK_ID,
-                    "session_date": date.today(),
-                    "sent_at": datetime.now(),
-                }
-            )
+            row = (conn.execute(
+                        text("""
+                            select token from gold.labeling_sessions where session_date = :today_date and break_id = :break_id
+                        """
+                        ),
+                        {
+                            "today_date": date.today(),
+                            "break_id": BREAK_ID
+                        }
+                    )
+                ).fetchone()
+            if row is not None:
+                return row[0]
 
-            conn.commit()
-            logging.info("Data written")
+            else:
+                conn.execute(
+                    text("""
+                        insert into gold.labeling_sessions (token, break_id, session_date, sent_at)
+                        values (:token, :break_id, :session_date, :sent_at)
+                    """
+                    ),
+                    {
+                        "token": token,
+                        "break_id": BREAK_ID,
+                        "session_date": date.today(),
+                        "sent_at": datetime.now(),
+                    }
+                )
+
+                conn.commit()
+                logging.info("Data written")
         except Exception as e:
             logging.error(f"Write failed: {e}")
             raise
