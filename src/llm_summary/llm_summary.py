@@ -2,6 +2,8 @@ import os
 from dotenv import load_dotenv
 import anthropic
 
+load_dotenv()
+
 client = anthropic.Anthropic()
 
 def generate_summary(text_to_summarize: str) -> str:
