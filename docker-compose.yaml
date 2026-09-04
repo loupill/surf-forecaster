@@ -16,6 +16,7 @@ x-airflow-common: &airflow-common
     APP_BASE_URL: ${APP_BASE_URL}
     PYTHONPATH: /opt/airflow/src
     AIRFLOW__WEBSERVER__WORKERS: 1
+    ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
   volumes:
     - ./dags:/opt/airflow/dags
     - ./src:/opt/airflow/src
