@@ -20,7 +20,20 @@ def get_data():
     '''
 
     scored_data = """
-    select *
+    select 
+        forecast_time
+        , wave_height_ft 
+        , swell_wave_height_ft 
+        , wind_wave_height_ft 
+        , swell_wave_period_s 
+        , wave_period_s 
+        , swell_wave_direction_cardinal 
+        , wave_direction_cardinal 
+        , tide
+        , temperature_f 
+        , wind_speed_mph 
+        , wind_direction_cardinal
+        , surf_score
     from gold.scored_forecasts
     where retrieved_at = (select max(retrieved_at) from gold.scored_forecasts)
     """
