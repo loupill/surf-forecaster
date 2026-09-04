@@ -14,15 +14,22 @@ from gold.scored_forecasts
 where retrieved_at = (select max(retrieved_at) from gold.scored_forecasts)
 """
 
-def get_data(query):
+def get_data():
     '''
     Get necessary data for creating summary
     '''
+
+    scored_data = """
+    select *
+    from gold.scored_forecasts
+    where retrieved_at = (select max(retrieved_at) from gold.scored_forecasts)
+    """
+
     engine = get_engine()
 
     with engine.connect() as conn:
         try:
-            df = pd.read_sql(text(query), conn)
+            df = pd.read_sql(text(scored_data), conn)
         except Exception as e:
             logging.error(f"Read failed: {e}")
             raise
@@ -32,5 +39,5 @@ def get_data(query):
 
 
 if __name__ == "__main__":
-    df = get_data(scored_data)
+    df = get_data()
 
