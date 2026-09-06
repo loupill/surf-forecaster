@@ -1,6 +1,7 @@
 import logging
 import secrets
-from datetime import date, datetime
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 from sqlalchemy import text
 from ingest.db import get_engine
 
@@ -11,10 +12,12 @@ logging.basicConfig(
 )
 
 BREAK_ID = 'belmar'
+EASTERN = ZoneInfo("America/New_York")
 
 def create_session():
     engine = get_engine()
     token = secrets.token_urlsafe(16)
+    today_eastern = datetime.now(EASTERN).date()
 
     with engine.connect() as conn:
         try:
@@ -24,7 +27,7 @@ def create_session():
                         """
                         ),
                         {
-                            "today_date": date.today(),
+                            "today_date": today_eastern,
                             "break_id": BREAK_ID
                         }
                     )
@@ -42,8 +45,8 @@ def create_session():
                     {
                         "token": token,
                         "break_id": BREAK_ID,
-                        "session_date": date.today(),
-                        "sent_at": datetime.now(),
+                        "session_date": today_eastern,
+                        "sent_at": datetime.now(timezone.utc),
                     }
                 )
 
