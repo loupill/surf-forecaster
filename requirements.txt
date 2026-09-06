@@ -18,3 +18,4 @@ uvicorn
 jinja2
 python-multipart
 anthropic
+scikit-learn
