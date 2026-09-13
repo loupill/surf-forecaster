@@ -33,3 +33,6 @@ logs/
 
 #misc.
 sms_service.py
+
+#data
+data/
