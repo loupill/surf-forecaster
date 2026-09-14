@@ -1,12 +1,14 @@
 import os
 from dotenv import load_dotenv
 import anthropic
+import pandas as pd
 
 load_dotenv()
 
 client = anthropic.Anthropic()
 
-def generate_summary(text_to_summarize: str) -> str:
+def generate_summary(text_to_summarize: pd.DataFrame) -> str:
+    data_csv = text_to_summarize.to_csv(index=False)
     response = client.messages.create(
         model="claude-sonnet-5",
         max_tokens=1024,
@@ -18,7 +20,7 @@ def generate_summary(text_to_summarize: str) -> str:
                     "Identify which days look best, note any standout conditions, and give "
                     "a short overall outlook for the week. Keep it concise and casual, "
                     "suitable for a Discord message.\n\n"
-                    f"{text_to_summarize}"
+                    f"{data_csv}"
                 )
             }
         ]
